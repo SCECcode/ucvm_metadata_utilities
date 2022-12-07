@@ -1,16 +1,30 @@
 #!/usr/bin/env python
 """
-read_ucvm_vert_profile.py: this script inputs the files produced from the UCVM web viewer
-when doing a vertical profile. The script includes two input files include metadata file, and a data file,
-both in json format. This then outputs the pandadata frame to a csv file format.
+  read_ucvm_vert_profile.py: 
+
+    read_ucvm_vert_profile.py path/UID
+
+this script inputs the files produced from the UCVM web viewer
+when doing a vertical profile. The script includes two input 
+files include metadata file, and a data file, both in json format. 
+This then outputs the pandadata frame to a csv file format.
 
 """
 import pandas as pd
 import json
 import sys
 
-input_metadata_file = "UCVM_1618866062727vertical_meta.json"
-input_data_file = "UCVM_1618866062727vertical_matprops.json"
+n=len(sys.argv)
+if n != 2 :
+  print("usage:  ",sys.argv[0], "UID");
+  exit(1)
+
+UID=sys.argv[1]
+
+#input_metadata_file = UID+"vertical_meta.json"
+#input_data_file = UID+"vertical_matprops.json"
+input_metadata_file = UID+"_v_meta.json"
+input_data_file = UID+"_v_matprops.json"
 
 
 def read_ucvm_vert_data():

@@ -1,13 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 ucvm_cross_section2csv.py:
 This script inputs the metadata (json) and data (bin) files produced from the UCVM plotting routines
 when doing a vertical cross section plot. This then outputs the panda data frame to a csv file format.
+       column => (lat,lon),....
+       row => depth[m]
+       
 """
 import pandas as pd
 import json
 import sys
 import numpy as np
+import pdb
 
 # import raw floats array data from the external file into
 # numpy array
@@ -26,8 +30,8 @@ def import_np_float_array(num_x, num_y):
 
 if __name__ == '__main__':
     """
-    :input: cross-cvmsi_meta.json cross-cvmsi_data.bin
-    :return: cross-cvmsi.csv file
+    :input: c_data.bin c_meta.json 
+    :return: c_data.csv file
     
     example input_metadata_file = "cross-cvmsi_meta.json"
     example input_data_file = "cross-cvmsi_data.bin"
@@ -47,8 +51,8 @@ if __name__ == '__main__':
     """
 
     if len(sys.argv) != 3:
-        raise ValueError("Please provide arguments: ucvm_cross_section2csv.py cross-cvmsi_data.bin cross-cvmsi_meta.json.\n"
-                         "e.g. ucvm_cross_section2csv.py cross-cvmsi_data.bin cross-cvmsi_meta.json")
+        raise ValueError("Please provide arguments: ucvm_cross_section2csv.py c_data.bin c_meta.json.\n"
+                         "e.g. ./ucvm_cross_section2csv.py c_data.bin c_meta.json")
 
     input_data_file = sys.argv[1]
     input_metadata_file = sys.argv[2]
@@ -110,7 +114,7 @@ if __name__ == '__main__':
         raise Exception("Unknown propertype type error type:",proptype)
 
     dlist = []
-    # Create a dataframe with one colument of Depths values
+    # Create a dataframe with one columen of Depths values
     for idx in range(len(depthlist)):
         dlist.append(depthlist[idx])
 
@@ -130,8 +134,7 @@ if __name__ == '__main__':
     # Create output file name
     # Example filename: input_data_file = "cross-cvmsi_meta.json"
     # cross-cvmsi_data.bin cross-cvmsi_meta.json
-    filevals = input_data_file.split("_")
-    output_file_name = filevals[0] + filevals[1] + ".csv"
+    output_file_name = input_data_file.replace(".bin",".csv")
     print("Writing CSV file: ", output_file_name)
     f = open(output_file_name, "w")
 
@@ -143,10 +146,15 @@ if __name__ == '__main__':
 
     header_str = '''\
     # Input Data files: {0} {1}
+    # Title: {10}
     # CVM(abbr): {2}
     # Data_type: {3}
-    # Start_depth(m): {4} End_depth(m): {5} Vert_spacing(m): {6}
-    # Depth_pts: {7} Horizontal_pts: {8} Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
+    # Start_depth(m): {4} 
+    # End_depth(m): {5} 
+    # Vert_spacing(m): {6}
+    # Depth_pts: {7} 
+    # Horizontal_pts: {8} 
+    # Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
                 obj["starting_depth"],
@@ -154,7 +162,8 @@ if __name__ == '__main__':
                 obj["vertical_spacing"],
                 len(depthlist),
                 len(latlist),
-                npts)
+                npts,
+                obj["title"])
 
     print(header_str)
     f.write(header_str)
