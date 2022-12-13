@@ -23,9 +23,12 @@ In both cases, the UCVM Files are converted into panda dataframes and then writt
 
 # Example Usage:
 The following examples will input data files in the repository.
-- ucvm_profile2csv.py
+- ucvm_profile2csv.py 1ddta/UCVM_1618866062727vertical_matprops.json 1ddata/UCVM_1618866062727vertical_matprops.json
 - ucvm_cross_section2csv.py 2ddata/cross-cvmsi_data.bin 2ddata/cross-cvmsi_meta.json
 - ucvm_horizontal_slice2csv.py 2ddata/cvms_poisson_map_data.bin 2ddata/cvms_poisson_map_meta.json
+
+# Documentation:
+- [UCVM metadata utilities Wiki](https://github.com/SCECcode/ucvm_metadata_utilities/wiki)
 
 # Support
 Please send questions/issue to software (at) scec.org
