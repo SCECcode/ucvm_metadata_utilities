@@ -9,8 +9,9 @@ These scripts use Python3. The UCVM plotting scripts use Python2. The plotting s
 
 Core UCVM is a C-language program and does not require Python. UCVM_Plotting is a Python2 language program, so if you are using the UCVM plotting scripts, this will typically be your default Python environment. The following example shows how users can change between a python2 environment (for generating the UCVM plots, data, and metadata files), and a Python3 environment for running these Python3 metadata utility scripts. This assumes youre Python2 environment is active, and it is called (python2).
 - % conda deactivate
-- Run these scripts
+- Run these ucvm metadata utility scripts
 - % conda activate python2
+- Run UCVM_Plotting scripts
 
 # Use Case
 These scripts read the UCVM metadata files and convert them to simpler text file formats. Three cases are currently support:
@@ -23,9 +24,9 @@ In both cases, the UCVM Files are converted into panda dataframes and then writt
 
 # Example Usage:
 The following examples call the conversion scripts and input the example input data files in this repository. These example input data files were produced by running the UCVM_Plotting scripts.
-- ucvm_profile2csv.py 1ddta/UCVM_1618866062727vertical_matprops.json 1ddata/UCVM_1618866062727vertical_meta.json
-- ucvm_cross_section2csv.py 2ddata/cross-cvmsi_data.bin 2ddata/cross-cvmsi_meta.json
-- ucvm_horizontal_slice2csv.py 2ddata/cvms_poisson_map_data.bin 2ddata/cvms_poisson_map_meta.json
+1. ucvm_profile2csv.py 1ddta/UCVM_1618866062727vertical_matprops.json 1ddata/UCVM_1618866062727vertical_meta.json
+2. ucvm_cross_section2csv.py 2ddata/cross-cvmsi_data.bin 2ddata/cross-cvmsi_meta.json
+3. ucvm_horizontal_slice2csv.py 2ddata/cvms_poisson_map_data.bin 2ddata/cvms_poisson_map_meta.json
 
 # Documentation:
 - [UCVM metadata utilities Wiki](https://github.com/SCECcode/ucvm_metadata_utilities/wiki)
