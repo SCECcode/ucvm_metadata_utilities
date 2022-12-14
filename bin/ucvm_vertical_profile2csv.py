@@ -1,38 +1,23 @@
 #!/usr/bin/env python
 """
-  read_ucvm_vert_profile.py: 
 
-    read_ucvm_vert_profile.py path/UID
+ucvm_vertical_profile2csv.py v_matprops.json v_meta.json
 
 this script inputs the files produced from the UCVM web viewer
 when doing a vertical profile. The script includes two input 
 files include metadata file, and a data file, both in json format. 
-This then outputs the pandadata frame to a csv file format.
+and outputs the panda data frame to a csv file format.
 
 """
 import pandas as pd
 import json
 import sys
 
-n=len(sys.argv)
-if n != 2 :
-  print("usage:  ",sys.argv[0], "UID");
-  exit(1)
-
-UID=sys.argv[1]
-
-#input_metadata_file = UID+"vertical_meta.json"
-#input_data_file = UID+"vertical_matprops.json"
-input_metadata_file = UID+"_v_meta.json"
-input_data_file = UID+"_v_matprops.json"
-
-
-def read_ucvm_vert_data():
+def read_ucvm_vert_data(file):
     """
-
     :return: This returns a list of values as a dict, with vp, vs, density keys
     """
-    with open(input_data_file) as json_data:
+    with open(file) as json_data:
         obj = json.load(json_data)
         #
         # vertical profile data is a list of objects, each object has vp, vs, rho
@@ -41,12 +26,14 @@ def read_ucvm_vert_data():
         return list_of_vals
 
 
-def read_ucvm_metadata():
+def read_ucvm_metadata(file):
     """
     :return: cvm_name, lat, lon, starting_depth, ending_depth, spacing, list of depth points
     """
-    with open(input_metadata_file) as json_data:
+    with open(file) as json_data:
         obj = json.load(json_data)
+        return obj
+
         cvm_name = obj["cvm"]
         lat = obj["lat1"]
         lon = obj["lon1"]
@@ -59,34 +46,44 @@ def read_ucvm_metadata():
 
 if __name__ == '__main__':
     """
+    :input: v_matprops.json v_meta.json
+    :return: v_data.csv file
+    
     Reads file names from header of this file.
     Outputs a CSV file with header and
     depth, vs, vp, rho columns
     """
-    metadepthlist = read_ucvm_metadata()
-    #
-    # The return values here are
-    # 0 cvm_name
-    # 1 lat
-    # 2 lon
-    # 3 start_depth
-    # 4 end_depth
-    # 5 vert_spacing
-    # 6 list of depth values
 
-    datalist = read_ucvm_vert_data()
+    if len(sys.argv) != 3:
+        raise ValueError("Please provide arguments: ucvm_vertical_profile2csv.py v_matprops.json v_meta.json.\n"
+                         "e.g. ./ucvm_vertial_profile2csv.py v_matprops.json v_meta.json")
 
-    if len(metadepthlist[6]) != len(datalist):
+    input_data_file = sys.argv[1]
+    input_metadata_file = sys.argv[2]
+    datalist=read_ucvm_vert_data(input_data_file)
+    mobj=read_ucvm_metadata(input_metadata_file)
+
+
+    cvm_name = mobj["cvm"]
+    lat = mobj["lat1"]
+    lon = mobj["lon1"]
+    starting_depth = mobj['starting_depth']
+    ending_depth = mobj['ending_depth']
+    vspacing = mobj["vertical_spacing"]
+    ldlist = mobj["depth"]
+
+
+    if len(ldlist) != len(datalist):
         raise Exception("Number of depth points does not each number of data points. Exiting",
-                        len(metadepthlist[6]), len(datalist))
+                        len(ldlist), len(datalist))
 
     merged_list = {}
     dlist = []
     vplist = []
     vslist = []
     denlist = []
-    for idx in range(len(metadepthlist[6])):
-        dlist.append(metadepthlist[6][idx])
+    for idx in range(len(ldlist)):
+        dlist.append(ldlist[idx])
         vplist.append(datalist[idx]["vp"])
         vslist.append(datalist[idx]["vs"])
         denlist.append(datalist[idx]["density"])
@@ -99,17 +96,25 @@ if __name__ == '__main__':
     #
     # Create output file name
     # Example filename: input_data_file = "UCVM_1618866062727vertical_matprops.json"
-    filevals = input_data_file.split("_")
-    output_file_name = filevals[0] + filevals[1] + ".csv"
-    print("Writing CSV file: ", output_file_name)
+    output_file_name = input_data_file.replace(".json",".csv")
+    print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
-    header_str = "# CVM_name:{0} Lat:{1} Long:{2} Start_depth(m):{3} End_depth(m):{4} Vert_spacing(m):{5}\n".format(
-        metadepthlist[0],
-        metadepthlist[1],
-        metadepthlist[2],
-        metadepthlist[3],
-        metadepthlist[4],
-        metadepthlist[5])
+    header_str = '''\
+# Title:{6}
+# CVM(abbr):{0} 
+# Lat:{1}
+# Long:{2}
+# Start_depth(m):{3}
+# End_depth(m):{4} 
+# Vert_spacing(m):{5}\n'''.format(
+    mobj["cvm"],
+    mobj["lat1"],
+    mobj["lon1"],
+    mobj['starting_depth'],
+    mobj['ending_depth'],
+    mobj["vertical_spacing"],
+    mobj["comment"])
+
     print(header_str)
     f.write(header_str)
     df.to_csv(f, index=False, mode="a")

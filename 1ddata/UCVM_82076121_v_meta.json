@@ -1,5 +1,6 @@
 {
-  "lat1": "33.7449", 
+  "comment": "CVM-H v15.1.1", 
+  "lat1": "33.6261", 
   "data_type": "vs,vp,density", 
   "ending_depth": "30000", 
   "installdir": "../model/UCVM_TARGET", 
@@ -306,10 +307,10 @@
     29900.0, 
     30000.0
   ], 
-  "outfile": "../result/UCVM_1618866062727vertical.png", 
+  "outfile": "../result/UCVM_82076121_v.png", 
   "configfile": "../model/UCVM_TARGET/conf/ucvm.conf", 
   "cvm": "cvmh", 
-  "lon1": "-118.4071", 
+  "lon1": "-116.1694", 
   "vertical_spacing": "100", 
   "starting_depth": "0"
 }

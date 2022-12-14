@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-ucvm_horizontal_slice2csv.py:
+ucvm_horizontal_slice2csv.py h_data.bin h_meta.json
+
 This script inputs the metadata (json) and data (bin) files produced from the UCVM plotting routines
 when doing a horizontal slice plot. This then outputs the panda data frame to a csv file format.
 
@@ -88,7 +89,6 @@ if __name__ == '__main__':
     # Use shape to return the dimensions of the np array that is returned
     # We assume it is 2D array
     datasizes = datalist.shape
-    print("lonpts:",datasizes[1],"latpts:",datasizes[0])
     if npts != (datasizes[0] * datasizes[1]) :
         raise Exception("Number of depth points does not each number of 1ddata points. Exiting", npts, datasizes[0] * datasizes[1])
     #
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     # Example filename: input_data_file = "cross-cvmsi_meta.json"
     # cross-cvmsi_data.bin cross-cvmsi_meta.json
     output_file_name = input_data_file.replace(".bin",".csv")
-    print("Writing CSV file: ", output_file_name)
+    print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
 
     """
@@ -149,15 +149,15 @@ if __name__ == '__main__':
     """
 
     header_str = '''\
-    # Input Data files: {0} {1}
-    # Title: {9}
-    # CVM(abbr): {2}
-    # Data_type: {3}
-    # Depth(m): {4} 
-    # Spacing(m): {5}
-    # Lon_pts: {6} 
-    # Lat_pts: {7} 
-    # Total_pts: {8}\n'''.format(
+# Input Data files: {0} {1}
+# Title: {9}
+# CVM(abbr): {2}
+# Data_type: {3}
+# Depth(m): {4} 
+# Spacing(m): {5}
+# Lon_pts: {6} 
+# Lat_pts: {7} 
+# Total_pts: {8}\n'''.format(
                 input_data_file,
                 input_metadata_file,
                 obj["cvm"],

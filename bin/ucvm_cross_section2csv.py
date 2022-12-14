@@ -83,7 +83,6 @@ if __name__ == '__main__':
     # Use shape to return the dimensions of the np array that is returned
     # We assume it is 2D array
     datasizes = datalist.shape
-    print("depthpts:",datasizes[0],"latpts:",datasizes[1])
     if npts != datasizes[0] * datasizes[1]:
         raise Exception("Number of depth points does not each number of 1ddata points. Exiting",
                         npts, datasizes[0] * datasizes[1])
@@ -129,13 +128,13 @@ if __name__ == '__main__':
         for d in range(len(depthlist)):
             vals.append(datalist[d][indx])
         df[colstr] = vals
-
+ 
     #
     # Create output file name
     # Example filename: input_data_file = "cross-cvmsi_meta.json"
     # cross-cvmsi_data.bin cross-cvmsi_meta.json
     output_file_name = input_data_file.replace(".bin",".csv")
-    print("Writing CSV file: ", output_file_name)
+    print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
 
     """
@@ -145,16 +144,16 @@ if __name__ == '__main__':
     """
 
     header_str = '''\
-    # Input Data files: {0} {1}
-    # Title: {10}
-    # CVM(abbr): {2}
-    # Data_type: {3}
-    # Start_depth(m): {4} 
-    # End_depth(m): {5} 
-    # Vert_spacing(m): {6}
-    # Depth_pts: {7} 
-    # Horizontal_pts: {8} 
-    # Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
+# Input Data files: {0} {1}
+# Title: {10}
+# CVM(abbr): {2}
+# Data_type: {3}
+# Start_depth(m): {4} 
+# End_depth(m): {5} 
+# Vert_spacing(m): {6}
+# Depth_pts: {7} 
+# Horizontal_pts: {8} 
+# Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
                 obj["starting_depth"],
