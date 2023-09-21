@@ -99,7 +99,8 @@ if __name__ == '__main__':
     output_file_name = input_data_file.replace(".json",".csv")
     print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
-    header_str = '''\
+    if "comment" not in mobj:
+      header_str = '''\
 # Title:{6}
 # CVM(abbr):{0} 
 # Lat:{1}
@@ -107,14 +108,29 @@ if __name__ == '__main__':
 # Start_depth(m):{3}
 # End_depth(m):{4} 
 # Vert_spacing(m):{5}\n'''.format(
-    mobj["cvm"],
-    mobj["lat1"],
-    mobj["lon1"],
-    mobj['starting_depth'],
-    mobj['ending_depth'],
-    mobj["vertical_spacing"],
-    mobj["comment"])
-
+      mobj["cvm"],
+      mobj["lat1"],
+      mobj["lon1"],
+      mobj['starting_depth'],
+      mobj['ending_depth'],
+      mobj["vertical_spacing"],
+      output_file_name)
+    else:
+      header_str = '''\
+# Title:{6}
+# CVM(abbr):{0} 
+# Lat:{1}
+# Long:{2}
+# Start_depth(m):{3}
+# End_depth(m):{4}  
+# Vert_spacing(m):{5}\n'''.format(
+      mobj["cvm"],
+      mobj["lat1"],
+      mobj["lon1"],
+      mobj['starting_depth'],
+      mobj['ending_depth'],
+      mobj["vertical_spacing"],
+      mobj["comment"])
     print(header_str)
     f.write(header_str)
     df.to_csv(f, index=False, mode="a")
