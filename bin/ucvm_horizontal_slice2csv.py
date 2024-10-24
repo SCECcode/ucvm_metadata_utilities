@@ -28,7 +28,6 @@ def import_np_float_array(num_x, num_y):
     fh.close()
     return floats
 
-
 if __name__ == '__main__':
     """
     :input: h_data.bin h_meta.json
@@ -76,12 +75,12 @@ if __name__ == '__main__':
     num_y = obj["num_y"]
 
 ## remove when ucvm_plotting is fixed
-    lat2 = obj["lat2"]
-    lon2 = obj["lon2"]
-    if(len(latlist) != num_x ):
-      latlist.append(lat2)
-    if(len(lonlist) != num_y ):
-      lonlist.append(lon2)
+#    lat2 = obj["lat2"]
+#    lon2 = obj["lon2"]
+#    if(len(latlist) != num_x ):
+#      latlist.append(lat2)
+#    if(len(lonlist) != num_y ):
+#      lonlist.append(lon2)
 
     #
     total_pts = len(lonlist) * len(latlist)
@@ -97,6 +96,7 @@ if __name__ == '__main__':
     for i in range(len(lonlist)):
         mystr = str(lonlist[i])
         mystrlist.append(mystr)
+
 
     if len(mystrlist) * len(latlist) != npts:
         print("Error: Total points should equal the number of lats times the number of lons",
@@ -125,12 +125,17 @@ if __name__ == '__main__':
     #Convert it to dataframe
     df = pd.DataFrame(dlist,columns=["Lats"])
 
+
     # Add each lonlist point as a column. 
     for indx in range(len(lonlist)):
         colstr = mystrlist[indx]
         vals = []
         for d in range(len(latlist)):
-            vals.append(datalist[d][indx])
+            v=datalist[d][indx]
+            if(v == 0.0):
+              vals.append(np.nan)
+            else:     
+              vals.append(datalist[d][indx])
         df[colstr] = vals
 
     #
@@ -154,10 +159,18 @@ if __name__ == '__main__':
 # CVM(abbr): {2}
 # Data_type: {3}
 # Depth(m): {4} 
-# Spacing(m): {5}
+# Spacing(degree): {5}
 # Lon_pts: {6} 
 # Lat_pts: {7} 
-# Total_pts: {8}\n'''.format(
+# Title: {8}
+# min_v: {10}
+# max_v: {11}
+# mean_v: {12}
+# lat1: {13}
+# lon1: {14}
+# lat2: {15}
+# lon2: {16}
+\n'''.format(
                 input_data_file,
                 input_metadata_file,
                 obj["cvm"],
@@ -167,7 +180,15 @@ if __name__ == '__main__':
                 len(lonlist),
                 len(latlist),
                 npts,
-                obj["title"])
+                obj["title"],
+                obj["min"],
+                obj["max"],
+                obj["mean"],
+                obj["lat1"],
+                obj["lon1"],
+                obj["lat2"],
+                obj["lon2"]
+                )
 
     print(header_str)
     f.write(header_str)
