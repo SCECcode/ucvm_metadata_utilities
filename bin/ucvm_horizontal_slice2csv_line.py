@@ -5,6 +5,7 @@ ucvm_horizontal_slice2csv.py h_data.bin h_meta.json
 This script inputs the metadata (json) and data (bin) files produced from the UCVM plotting routines
 when doing a horizontal slice plot. This then outputs the panda data frame to a csv file format.
 
+one latlon point per line
 """
 import pandas as pd
 import json
@@ -52,10 +53,7 @@ if __name__ == '__main__':
 # lon1: -126.4
 # lat2: 41.50
 
-Lats,-126.4,-126.39,...
-35.0200,,,,,,...
-35.0300,,,,,,...
- 
+#lon,lat,vs
     """
 
     if len(sys.argv) != 3:
@@ -81,14 +79,6 @@ Lats,-126.4,-126.39,...
     npts = obj["datapoints"]
     num_x = obj["num_x"]
     num_y = obj["num_y"]
-
-## remove when ucvm_plotting is fixed
-#    lat2 = obj["lat2"]
-#    lon2 = obj["lon2"]
-#    if(len(latlist) != num_x ):
-#      latlist.append(lat2)
-#    if(len(lonlist) != num_y ):
-#      lonlist.append(lon2)
 
     #
     total_pts = len(lonlist) * len(latlist)
@@ -125,27 +115,6 @@ Lats,-126.4,-126.39,...
     else:
         raise Exception("Unknown propertype type error type:",proptype)
 
-    dlist = []
-    # Create a dataframe with one columen of Lat values
-    for idx in range(len(latlist)):
-        dlist.append(latlist[idx])
-
-    #Convert it to dataframe
-    df = pd.DataFrame(dlist,columns=["Lats"])
-
-
-    # Add each lonlist point as a column. 
-    for indx in range(len(lonlist)):
-        colstr = mystrlist[indx]
-        vals = []
-        for d in range(len(latlist)):
-            v=datalist[d][indx]
-            if(v == 0.0):
-              vals.append(np.nan)
-            else:     
-              vals.append(datalist[d][indx])
-        df[colstr] = vals
-
     #
     # Create output file name
     # Example filename: input_data_file = "cross-cvmsi_meta.json"
@@ -153,13 +122,6 @@ Lats,-126.4,-126.39,...
     output_file_name = input_data_file.replace(".bin",".csv")
     print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
-
-    """
-  ['num_y', 'lat1', 'data_type', 'lat2', 'color', 'max',
-   'title', 'spacing', 'configfile', 'lon_list', 'num_x',
-   'outfile', 'depth', 'cvm', 'min', 'datapoints', 'lon1',
-   'lat_list', 'lon2', 'installdir', 'mean']
-    """
 
     header_str = '''\
 # Input Data files: {0} {1}
@@ -178,7 +140,8 @@ Lats,-126.4,-126.39,...
 # lon1: {14}
 # lat2: {15}
 # lon2: {16}
-\n'''.format(
+# lon,lat,{4}
+'''.format(
                 input_data_file,
                 input_metadata_file,
                 obj["cvm"],
@@ -200,8 +163,13 @@ Lats,-126.4,-126.39,...
 
     print(header_str)
     f.write(header_str)
-    df.to_csv(f, float_format='{:5.4f}'.format, index=False, mode="a")
-    # This version will remove the column name headers
-    #  df.to_csv(f, header=False,float_format='{:5.4f}'.format, index=False, mode="a")
+
+    # Add each lonlist point as a column.
+    for i in range(len(lonlist)):
+        for j in range(len(latlist)):
+            v=datalist[j][i]
+            if(v != 0.0):
+                f.write('{0},{1},{2}\n'.format(lonlist[i],latlist[j],v));
+
     f.close()
     sys.exit(True)
