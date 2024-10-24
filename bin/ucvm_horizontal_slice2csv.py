@@ -162,7 +162,7 @@ if __name__ == '__main__':
 # Spacing(degree): {5}
 # Lon_pts: {6} 
 # Lat_pts: {7} 
-# Title: {8}
+# data_points: {8}
 # min_v: {10}
 # max_v: {11}
 # mean_v: {12}
