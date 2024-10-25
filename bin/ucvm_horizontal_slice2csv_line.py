@@ -52,7 +52,6 @@ if __name__ == '__main__':
 # lat1: 35.02
 # lon1: -126.4
 # lat2: 41.50
-
 #lon,lat,vs
     """
 
@@ -140,7 +139,7 @@ if __name__ == '__main__':
 # lon1: {14}
 # lat2: {15}
 # lon2: {16}
-# lon,lat,{4}
+# lon,lat,{3}
 '''.format(
                 input_data_file,
                 input_metadata_file,
