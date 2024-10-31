@@ -4,14 +4,15 @@ This repo contains scripts for working with ucvm metadata files. UCVM plotting r
 # Introduction
 UCVM metadata files are produced by the UCVM website. They are also produced by the UCVM plotting routines. Three types of UCVM plotting queries are currently supported including vertical profile plots, vertical cross section plots, and horizontal slice plots. The data directories in this repo contain examples of these plots, as png files, and the associated data and metadata files that contain the data used to create the pngs. 
 
-# Python3 versus Python2
-These scripts use Python3. The UCVM plotting scripts use Python2. The plotting scripts have not been updated to Python3 because some of the required libraries (basemap) are not available for Python3, so the upgrade to Python3 will take substantial time. We typically recommend using Anaconda virtual enviroments for working with UCVM plotting. This will allow users to change between a python2 and python3 environment easily. 
+# Python3 
+These scripts use Python3. We typically recommend using Anaconda virtual enviroments for working with UCVM plotting. 
 
-Core UCVM is a C-language program and does not require a specific Python. UCVM_Plotting is a Python2 language program, so if you are using the UCVM plotting scripts directly, you should setup a Python2 environment as the base environment.
-The following example shows how users can change between a Python2 environment (for generating the UCVM plots, data, and metadata files), and a Python3 environment for running these metadata utility scripts. This assumes your Python2 environment is active, and a Python3 environment called python3.
+Core UCVM is a C-language program but uses Python during installation.
+
+The following example shows how users can change between a Python2/Python3 environment.
 
 - % conda deactivate
-- Run UCVM_Plotting scripts
+- Run Python2 scripts
 
 - % conda activate python3
 - Run these ucvm metadata utility scripts

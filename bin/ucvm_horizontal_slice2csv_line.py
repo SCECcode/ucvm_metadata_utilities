@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-ucvm_horizontal_slice2csv.py h_data.bin h_meta.json
+ucvm_horizontal_slice2csv_line.py h_data.bin h_meta.json
 
 This script inputs the metadata (json) and data (bin) files produced from the UCVM plotting routines
-when doing a horizontal slice plot. This then outputs the panda data frame to a csv file format.
+when doing a horizontal slice plot. This then outputs in csv file format.
 
 one latlon point per line
 """
-import pandas as pd
 import json
 import sys
 import numpy as np
