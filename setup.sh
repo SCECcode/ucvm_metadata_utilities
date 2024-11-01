@@ -1,5 +1,3 @@
 #
-#
-#
-CWD='pwd'
+CWD=`pwd`
 export PATH=${CWD}/bin:$PATH

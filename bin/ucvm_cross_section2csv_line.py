@@ -165,7 +165,9 @@ if __name__ == '__main__':
 # Vert_spacing(m): {6}
 # Depth_pts: {7} 
 # Horizontal_pts: {8} 
-# Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
+# Total_pts: {9}
+# lon,lat,{2}
+'''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
                 obj["starting_depth"],
