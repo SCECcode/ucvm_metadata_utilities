@@ -5,12 +5,12 @@ ucvm_horizontal_slice2csv_line.py h_data.bin h_meta.json
 This script inputs the metadata (json) and data (bin) files produced from the UCVM plotting routines
 when doing a horizontal slice plot. This then outputs in csv file format.
 
-one latlon point per line
+lon lat val
+
 """
 import json
 import sys
 import numpy as np
-import pdb
 
 # import raw floats array data from the external file into
 # numpy array
@@ -86,19 +86,11 @@ if __name__ == '__main__':
     datasizes = datalist.shape
     if npts != (datasizes[0] * datasizes[1]) :
         raise Exception("Number of depth points does not each number of 1ddata points. Exiting", npts, datasizes[0] * datasizes[1])
-    #
-    # Combine the
-    mystrlist = []
-    for i in range(len(lonlist)):
-        mystr = str(lonlist[i])
-        mystrlist.append(mystr)
 
-
-    if len(mystrlist) * len(latlist) != npts:
+    if len(lonlist) * len(latlist) != npts:
         print("Error: Total points should equal the number of lats times the number of lons",
-              len(mystrlist) * len(latlist),npts)
+              len(lonlist) * len(latlist),npts)
         sys.exit(0)
-
     #
     # Find properties type
     proptype = obj["data_type"]
