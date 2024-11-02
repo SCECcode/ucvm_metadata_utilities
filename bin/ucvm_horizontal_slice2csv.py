@@ -168,14 +168,14 @@ Lats,-126.4,-126.39,...
 # Spacing(degree): {5}
 # Lon_pts: {6} 
 # Lat_pts: {7} 
-# data_points: {8}
-# min_v: {10}
-# max_v: {11}
-# mean_v: {12}
-# lat1: {13}
-# lon1: {14}
-# lat2: {15}
-# lon2: {16}
+# Total_pts: {8}
+# Min_v: {10}
+# Max_v: {11}
+# Mean_v: {12}
+# Lat1: {13}
+# Lon1: {14}
+# Lat2: {15}
+# Lon2: {16}
 '''.format(
                 input_data_file,
                 input_metadata_file,

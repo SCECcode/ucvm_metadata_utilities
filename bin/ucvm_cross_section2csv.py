@@ -153,15 +153,15 @@ if __name__ == '__main__':
 # Depth_pts: {7} 
 # Horizontal_pts: {8} 
 # Total_pts: {9}
-# min_v: {11}
-# max_v: {12}
-# mean_v: {13}
-# num_x: {14}
-# num_y: {15}
-# lat1: {16}
-# lon1: {17}
-# lat2: {18}
-# lon2: {19}
+# Min_v: {11}
+# Max_v: {12}
+# Mean_v: {13}
+# Num_x: {14}
+# Num_y: {15}
+# Lat1: {16}
+# Lon1: {17}
+# Lat2: {18}
+# Lon2: {19}
 '''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
