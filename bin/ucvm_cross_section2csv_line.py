@@ -152,7 +152,7 @@ if __name__ == '__main__':
 # lon1: {17}
 # lat2: {18}
 # lon2: {19}
-# lon,lat,{2}
+# lon,lat,{3}
 '''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
