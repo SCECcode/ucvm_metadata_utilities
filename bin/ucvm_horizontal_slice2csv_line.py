@@ -36,7 +36,6 @@ if __name__ == '__main__':
     Reads file names from header of this file.
     Outputs a CSV file with header:
         
-# Input Data files: sfcvm_0_01_data.bin sfcvm_0_01_meta.json
 # Title: horizontal vs sfcvm
 # CVM(abbr): sfcvm
 # Data_type: vs
@@ -114,7 +113,6 @@ if __name__ == '__main__':
     f = open(output_file_name, "w")
 
     header_str = '''\
-# Input Data files: {0} {1}
 # Title: {9}
 # CVM(abbr): {2}
 # Data_type: {3}

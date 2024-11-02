@@ -144,7 +144,6 @@ if __name__ == '__main__':
     """
 
     header_str = '''\
-# Input Data files: {0} {1}
 # Title: {10}
 # CVM(abbr): {2}
 # Data_type: {3}
@@ -153,7 +152,17 @@ if __name__ == '__main__':
 # Vert_spacing(m): {6}
 # Depth_pts: {7} 
 # Horizontal_pts: {8} 
-# Total_pts: {9}\n'''.format(input_data_file,input_metadata_file,
+# Total_pts: {9}
+# min_v: {11}
+# max_v: {12}
+# mean_v: {13}
+# num_x: {14}
+# num_y: {15}
+# lat1: {16}
+# lon1: {17}
+# lat2: {18}
+# lon2: {19}
+'''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
                 obj["starting_depth"],
@@ -162,7 +171,17 @@ if __name__ == '__main__':
                 len(depthlist),
                 len(latlist),
                 npts,
-                obj["title"])
+                obj["title"],
+                obj["min"],
+                obj["max"],
+                obj["mean"],
+                obj["num_x"],
+                obj["num_y"],
+                obj["lat1"],
+                obj["lon1"],
+                obj["lat2"],
+                obj["lon2"]
+           )
 
     print(header_str)
     f.write(header_str)

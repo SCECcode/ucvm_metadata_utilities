@@ -57,28 +57,6 @@ if __name__ == '__main__':
   "lon_list": ..
   "lat_list": ..
   "depth_list": ..
-
-    Outputs a CSV file with header:
-    # cvm (abbr) : string
-    # data_type : string
-    # datapoints (# rows) : XX
-    # starting_depth : XX 
-    # ending_depth: XX
-    # horizontal_spacing: XX
-    # vertical_spacing: XX
-    # starting_lat_lon: lat1,lon1
-    # ending_lat_lon: lat2, lon2
-    #
-# Input Data files: CVM_1730414702834_c_data.bin CVM_1730414702834_c_meta.json
-# Title: sfcvm Cross Section from (-122.66, 37.58) to (-121.14, 37.75)
-# CVM(abbr): sfcvm
-# Data_type: vs
-# Start_depth(m): 0
-# End_depth(m): 5000
-# Vert_spacing(m): 50
-# Depth_pts: 101
-# Horizontal_pts: 160
-# Total_pts: 16160
     """
 
     if len(sys.argv) != 3:
@@ -156,7 +134,6 @@ if __name__ == '__main__':
     """
 
     header_str = '''\
-# Input Data files: {0} {1}
 # Title: {10}
 # CVM(abbr): {2}
 # Data_type: {3}
@@ -166,6 +143,15 @@ if __name__ == '__main__':
 # Depth_pts: {7} 
 # Horizontal_pts: {8} 
 # Total_pts: {9}
+# min_v: {11}
+# max_v: {12}
+# mean_v: {13}
+# num_x: {14}
+# num_y: {15}
+# lat1: {16}
+# lon1: {17}
+# lat2: {18}
+# lon2: {19}
 # lon,lat,{2}
 '''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
@@ -176,7 +162,17 @@ if __name__ == '__main__':
                 len(depthlist),
                 len(latlist),
                 npts,
-                obj["title"])
+                obj["title"],
+                obj["min"],
+                obj["max"],
+                obj["mean"],
+                obj["num_x"],
+                obj["num_y"],
+                obj["lat1"],
+                obj["lon1"],
+                obj["lat2"],
+                obj["lon2"]
+           )
 
     print(header_str)
     f.write(header_str)
