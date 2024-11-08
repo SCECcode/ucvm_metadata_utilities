@@ -152,7 +152,7 @@ if __name__ == '__main__':
 # Lon1: {17}
 # Lat2: {18}
 # Lon2: {19}
-# depth,lon,lat,{3}
+# lon,lat,depth,{3}
 '''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],
@@ -180,7 +180,7 @@ if __name__ == '__main__':
     for i in range(len(latlist)):
         for d in range(len(depthlist)):
             v=datalist[d][i]
-            f.write('{0},{1},{2},{3}\n'.format(depthlist[d],lonlist[i],latlist[i],v));
+            f.write('{0},{1},{2},{3}\n'.format(lonlist[i],latlist[i],depthlist[d],v));
 
  
     f.close()
