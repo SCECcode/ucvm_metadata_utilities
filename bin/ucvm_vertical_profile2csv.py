@@ -88,7 +88,7 @@ if __name__ == '__main__':
         vslist.append(datalist[idx]["vs"])
         denlist.append(datalist[idx]["density"])
 
-    merged_list = {"Depth(m)": dlist, "Vp(m)": vplist, "Vs(m)": vslist, "Density(kg/m^3)": denlist}
+    merged_list = {"#Depth(m)": dlist, "Vp(m)": vplist, "Vs(m)": vslist, "Density(kg/m^3)": denlist}
     #
     # convert to dataframes
     #
