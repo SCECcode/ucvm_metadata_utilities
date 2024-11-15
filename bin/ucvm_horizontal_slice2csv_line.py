@@ -158,8 +158,9 @@ if __name__ == '__main__':
     for i in range(len(lonlist)):
         for j in range(len(latlist)):
             v=datalist[j][i]
-            if(v != 0.0):
-                f.write('{0},{1},{2}\n'.format(lonlist[i],latlist[j],v));
+#            if(v != 0.0):
+#                f.write('{0},{1},{2}\n'.format(lonlist[i],latlist[j],v));
+            f.write('{0},{1},{2}\n'.format(lonlist[i],latlist[j],v));
 
     f.close()
     sys.exit(True)
