@@ -41,7 +41,8 @@ def read_ucvm_metadata(file):
         ending_depth = obj['ending_depth']
         vspacing = obj["vertical_spacing"]
         ldlist = obj["depth"]
-        return cvm_name, lat, lon, starting_depth, ending_depth, vspacing, ldlist
+        data_type = obj["data_type"]
+        return cvm_name, lat, lon, starting_depth, ending_depth, vspacing, ldlist, data_type
 
 
 if __name__ == '__main__':
@@ -71,6 +72,7 @@ if __name__ == '__main__':
     ending_depth = mobj['ending_depth']
     vspacing = mobj["vertical_spacing"]
     ldlist = mobj["depth"]
+    dtype = mobj["data_type"]
 
 
     if len(ldlist) != len(datalist):
@@ -102,13 +104,14 @@ if __name__ == '__main__':
 
     if "comment" not in mobj:
       header_str = '''\
-# Title:{6}
+# Title:{7}
 # CVM(abbr):{0} 
 # Lat:{1}
 # Lon:{2}
 # Start_depth(m):{3}
 # End_depth(m):{4} 
 # Vert_spacing(m):{5}
+# Data_type:{6}
 '''.format(
       mobj["cvm"],
       mobj["lat1"],
@@ -116,17 +119,19 @@ if __name__ == '__main__':
       mobj['starting_depth'],
       mobj['ending_depth'],
       mobj["vertical_spacing"],
+      mobj["data_type"],
       output_file_name)
     else:
       header_str = '''\
-# Title:{6}
+# Title:{8}
 # CVM(abbr):{0} 
 # Lat:{1}
 # Lon:{2}
 # Start_depth(m):{3}
 # End_depth(m):{4}  
 # Vert_spacing(m):{5}
-# Comment:{6}
+# Data_type:{6}
+# Comment:{7}
 '''.format(
       mobj["cvm"],
       mobj["lat1"],
@@ -134,7 +139,9 @@ if __name__ == '__main__':
       mobj['starting_depth'],
       mobj['ending_depth'],
       mobj["vertical_spacing"],
-      mobj["comment"])
+      mobj["data_type"],
+      mobj["comment"],
+      output_file_name)
 
     print(header_str)
     f.write(header_str)
