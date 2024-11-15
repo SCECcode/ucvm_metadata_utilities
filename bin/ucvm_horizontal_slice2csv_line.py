@@ -7,6 +7,8 @@ when doing a horizontal slice plot. This then outputs in csv file format.
 
 lon lat val
 
+skipped outputing row that has val=0.0
+
 """
 import json
 import sys
