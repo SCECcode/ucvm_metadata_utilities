@@ -104,14 +104,13 @@ if __name__ == '__main__':
 
     if "comment" not in mobj:
       header_str = '''\
-# Title:{7}
+# Title:{6}
 # CVM(abbr):{0} 
 # Lat:{1}
 # Lon:{2}
 # Start_depth(m):{3}
 # End_depth(m):{4} 
 # Vert_spacing(m):{5}
-# Data_type:{6}
 '''.format(
       mobj["cvm"],
       mobj["lat1"],
@@ -119,19 +118,17 @@ if __name__ == '__main__':
       mobj['starting_depth'],
       mobj['ending_depth'],
       mobj["vertical_spacing"],
-      mobj["data_type"],
       output_file_name)
     else:
       header_str = '''\
-# Title:{8}
+# Title:{7}
 # CVM(abbr):{0} 
 # Lat:{1}
 # Lon:{2}
 # Start_depth(m):{3}
 # End_depth(m):{4}  
 # Vert_spacing(m):{5}
-# Data_type:{6}
-# Comment:{7}
+# Comment:{6}
 '''.format(
       mobj["cvm"],
       mobj["lat1"],
@@ -139,7 +136,6 @@ if __name__ == '__main__':
       mobj['starting_depth'],
       mobj['ending_depth'],
       mobj["vertical_spacing"],
-      mobj["data_type"],
       mobj["comment"],
       output_file_name)
 
