@@ -180,7 +180,10 @@ if __name__ == '__main__':
     for i in range(len(latlist)):
         for d in range(len(depthlist)):
             v=datalist[d][i]
-            f.write('{0},{1},{2},{3}\n'.format(lonlist[i],latlist[i],depthlist[d],v));
+            if( v == -1 ) :
+              f.write('{0},{1},{2},nan\n'.format(lonlist[i],latlist[i],depthlist[d]));
+            else :
+              f.write('{0},{1},{2},{3}\n'.format(lonlist[i],latlist[i],depthlist[d],v));
 
  
     f.close()
