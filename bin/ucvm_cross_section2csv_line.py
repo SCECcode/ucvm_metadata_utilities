@@ -140,6 +140,7 @@ if __name__ == '__main__':
 # Start_depth(m): {4} 
 # End_depth(m): {5} 
 # Vert_spacing(m): {6}
+# Horizontal_spacing(m): {20}
 # Depth_pts: {7} 
 # Horizontal_pts: {8} 
 # Total_pts: {9}
@@ -171,7 +172,8 @@ if __name__ == '__main__':
                 obj["lat1"],
                 obj["lon1"],
                 obj["lat2"],
-                obj["lon2"]
+                obj["lon2"],
+                obj["horizontal_spacing"]
            )
 
     print(header_str)
