@@ -34,16 +34,6 @@ def read_ucvm_metadata(file):
         obj = json.load(json_data)
         return obj
 
-        cvm_name = obj["cvm"]
-        lat = obj["lat1"]
-        lon = obj["lon1"]
-        starting_depth = obj['starting_depth']
-        ending_depth = obj['ending_depth']
-        vspacing = obj["vertical_spacing"]
-        ldlist = obj["depth"]
-        data_type = obj["data_type"]
-        return cvm_name, lat, lon, starting_depth, ending_depth, vspacing, ldlist, data_type
-
 
 if __name__ == '__main__':
     """
@@ -68,10 +58,20 @@ if __name__ == '__main__':
     cvm_name = mobj["cvm"]
     lat = mobj["lat1"]
     lon = mobj["lon1"]
-    starting_depth = mobj['starting_depth']
-    ending_depth = mobj['ending_depth']
+
+    isDepth=0;
+    if 'starting_depth' in mobj :
+       starting_depth = mobj['starting_depth']
+       ending_depth = mobj['ending_depth']
+       ldlist = mobj["depth"]
+       isDepth=1;
+    else:
+       starting_elevation = mobj['starting_elevation']
+       ending_elevation = mobj['ending_elevation']
+       ldlist = mobj["elevation"]
+
+
     vspacing = mobj["vertical_spacing"]
-    ldlist = mobj["depth"]
     dtype = mobj["data_type"]
 
 
@@ -102,8 +102,9 @@ if __name__ == '__main__':
     print("\nWriting CSV file: ", output_file_name)
     f = open(output_file_name, "w")
 
-    if "comment" not in mobj:
-      header_str = '''\
+    if isDepth :
+      if "comment" not in mobj:
+        header_str = '''\
 # Title:{6}
 # CVM(abbr):{0} 
 # Lat:{1}
@@ -119,8 +120,8 @@ if __name__ == '__main__':
       mobj['ending_depth'],
       mobj["vertical_spacing"],
       output_file_name)
-    else:
-      header_str = '''\
+      else:
+        header_str = '''\
 # Title:{7}
 # CVM(abbr):{0} 
 # Lat:{1}
@@ -135,6 +136,43 @@ if __name__ == '__main__':
       mobj["lon1"],
       mobj['starting_depth'],
       mobj['ending_depth'],
+      mobj["vertical_spacing"],
+      mobj["comment"],
+      output_file_name)
+    else: # not isDepth 
+      if "comment" not in mobj:
+        header_str = '''\
+# Title:{6}
+# CVM(abbr):{0} 
+# Lat:{1}
+# Lon:{2}
+# Start_elevation(m):{3}
+# End_elevation(m):{4} 
+# Vert_spacing(m):{5}
+'''.format(
+      mobj["cvm"],
+      mobj["lat1"],
+      mobj["lon1"],
+      mobj['starting_elevation'],
+      mobj['ending_elevation'],
+      mobj["vertical_spacing"],
+      output_file_name)
+      else:
+        header_str = '''\
+# Title:{7}
+# CVM(abbr):{0} 
+# Lat:{1}
+# Lon:{2}
+# Start_elevation(m):{3}
+# End_elevation(m):{4}  
+# Vert_spacing(m):{5}
+# Comment:{6}
+'''.format(
+      mobj["cvm"],
+      mobj["lat1"],
+      mobj["lon1"],
+      mobj['starting_elevation'],
+      mobj['ending_elevation'],
       mobj["vertical_spacing"],
       mobj["comment"],
       output_file_name)
