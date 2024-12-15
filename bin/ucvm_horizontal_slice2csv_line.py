@@ -130,7 +130,7 @@ if __name__ == '__main__':
 # Lon1: {14}
 # Lat2: {15}
 # Lon2: {16}
-# lon,lat,{3}
+# Lon,Lat,{17}
 '''.format(
                 input_data_file,
                 input_metadata_file,
@@ -148,7 +148,8 @@ if __name__ == '__main__':
                 obj["lat1"],
                 obj["lon1"],
                 obj["lat2"],
-                obj["lon2"]
+                obj["lon2"],
+                propstr
                 )
 
     print(header_str)

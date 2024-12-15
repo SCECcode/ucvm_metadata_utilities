@@ -166,18 +166,18 @@ if __name__ == '__main__':
     print(header_str)
     f.write(header_str)
 
-    for i in range(len(latlist)):
-        for d in range(len(depthlist)):
-            vp=vp_datalist[d][i]
+    for i in range(len(lonlist)):
+        for j in range(len(latlist)):
+            vp=vp_datalist[j][i]
             if(vp == -1) :
               vp="nan"
-            vs=vs_datalist[d][i]
+            vs=vs_datalist[j][i]
             if(vs == -1) :
               vs="nan"
-            density=density_datalist[d][i]
+            density=density_datalist[j][i]
             if(density == -1) :
               density="nan"
-            f.write('{0},{1},{2},{3},{4},{5}\n'.format(lonlist[i],latlist[i],depthlist[d],vp,vs,density));
+            f.write('{0},{1},{2},{3},{4}\n'.format(lonlist[i],latlist[i],vp,vs,density));
 
     f.close()
     sys.exit(True)

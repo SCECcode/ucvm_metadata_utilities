@@ -37,6 +37,7 @@ if __name__ == '__main__':
     example input_metadata_file = "cross-cvmsi_meta.json"
     example input_data_file = "cross-cvmsi_data.bin"
     Reads file names from header of this file.
+
   "starting_depth": "0",
   "horizontal_spacing": "852",
   "data_type": "vs",
