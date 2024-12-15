@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 ucvm_cross_section2csv_all.py:
+
 This script takes 3 sets of metadata (json) and binary data (bin) files produced from
 the UCVM plotting routines when doing a vertical cross section plot. This then outputs 
 to a csv file format.
@@ -10,6 +11,8 @@ lon lat depth vp vs density
 import json
 import sys
 import numpy as np
+
+import pdb
 
 # import raw floats array data from the external file into
 # numpy array
@@ -68,7 +71,7 @@ if __name__ == '__main__':
     vp_metadata_file = sys.argv[2]
     vs_data_file = sys.argv[3]
     vs_metadata_file = sys.argv[4]
-    density_data_file = sys.argv[6]
+    density_data_file = sys.argv[5]
     density_metadata_file = sys.argv[6]
     with open(vp_metadata_file) as json_data:
         vp_obj = json.load(json_data)
@@ -134,38 +137,38 @@ if __name__ == '__main__':
     """
 
     header_str = '''\
-# Title: {1}
-# CVM(abbr): {2}
+# Title: {0}
+# CVM(abbr): {1}
 # Data_type: vp,vs,density
-# Start_depth(m): {3} 
-# End_depth(m): {4} 
-# Vert_spacing(m): {5}
-# Horizontal_spacing(m): {6}
-# Depth_pts: {7} 
-# Horizontal_pts: {8} 
-# Total_pts: {9}
-# vp Min_v: {11}
-# vp Max_v: {12}
-# vp Mean_v: {13}
-# vs Min_v: {14}
-# vs Max_v: {15}
-# vs Mean_v: {16}
-# density Min_v: {17}
-# density Max_v: {18}
-# density Mean_v: {19}
-# Num_x: {20}
-# Num_y: {21}
-# Lat1: {22}
-# Lon1: {23}
-# Lat2: {24}
-# Lon2: {25}
-# Lon,Lat,Depth(m),{26},{27},{28}
+# Start_depth(m): {2} 
+# End_depth(m): {3} 
+# Vert_spacing(m): {4}
+# Horizontal_spacing(m): {5}
+# Depth_pts: {6} 
+# Horizontal_pts: {7} 
+# Total_pts: {8}
+# vp Min_v: {9}
+# vp Max_v: {10}
+# vp Mean_v: {11}
+# vs Min_v: {12}
+# vs Max_v: {13}
+# vs Mean_v: {14}
+# density Min_v: {15}
+# density Max_v: {16}
+# density Mean_v: {17}
+# Num_x: {18}
+# Num_y: {19}
+# Lat1: {20}
+# Lon1: {21}
+# Lat2: {22}
+# Lon2: {23}
+# Lon,Lat,Depth(m),{24},{25},{26}
 '''.format(vp_obj["title"],
            vp_obj["cvm"],
            vp_obj["starting_depth"],
            vp_obj["ending_depth"],
            vp_obj["vertical_spacing"],
-           vp_obj["horizontal_spacing"]
+           vp_obj["horizontal_spacing"],
            len(depthlist),
            len(latlist),
            npts,
@@ -196,13 +199,13 @@ if __name__ == '__main__':
         for d in range(len(depthlist)):
             vp=vp_datalist[d][i]
             if(vp == -1) :
-              vp=nan
+              vp="nan"
             vs=vs_datalist[d][i]
             if(vs == -1) :
-              vs=nan
+              vs="nan"
             density=density_datalist[d][i]
             if(density == -1) :
-              density=nan
+              density="nan"
             f.write('{0},{1},{2},{3},{4},{5}\n'.format(lonlist[i],latlist[i],depthlist[d],vp,vs,density));
 
  

@@ -109,9 +109,9 @@ if __name__ == '__main__':
     # Find properties type
     proptype = obj["data_type"]
     if proptype == "vp":
-        propstr = "Vp(km/s)"
+        propstr = "Vp(m/s)"
     elif proptype == "vs":
-        propstr = "Vs(km/s)"
+        propstr = "Vs(m/s)"
     elif proptype == "density":
         propstr = "Density(kg/m^3)"
     elif proptype == "poisson":
@@ -153,7 +153,7 @@ if __name__ == '__main__':
 # Lon1: {17}
 # Lat2: {18}
 # Lon2: {19}
-# lon,lat,depth,{3}
+# Lon,Lat,Depth(m),{3}(m/s)
 '''.format(input_data_file,input_metadata_file,
                 obj["cvm"],
                 obj["data_type"],

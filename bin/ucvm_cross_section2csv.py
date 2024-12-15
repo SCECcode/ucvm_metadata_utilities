@@ -102,9 +102,9 @@ if __name__ == '__main__':
     # Find properties type
     proptype = obj["data_type"]
     if proptype == "vp":
-        propstr = "Vp(km/s)"
+        propstr = "Vp(m/s)"
     elif proptype == "vs":
-        propstr = "Vs(km/s)"
+        propstr = "Vs(m/s)"
     elif proptype == "density":
         propstr = "Density(kg/m^3)"
     elif proptype == "poisson":
