@@ -137,7 +137,7 @@ if __name__ == '__main__':
 # Lon1: {17}
 # Lat2: {18}
 # Lon2: {19}
-# Lon,Lat,Depth(m),{20},{21},{22}
+# Lon,Lat,{20},{21},{22}
 '''.format(vp_obj["title"],
            vp_obj["cvm"],
            vp_obj["depth"],
@@ -177,7 +177,7 @@ if __name__ == '__main__':
             density=density_datalist[j][i]
             if(density == -1) :
               density="nan"
-            f.write('{0},{1},{2},{3},{4}\n'.format(lonlist[i],latlist[i],vp,vs,density));
+            f.write('{0},{1},{2},{3},{4}\n'.format(lonlist[i],latlist[j],vp,vs,density));
 
     f.close()
     sys.exit(True)
