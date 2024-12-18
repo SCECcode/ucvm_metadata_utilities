@@ -4,7 +4,7 @@ ucvm_horizontal_slice2csv_all.py:
 
 This script takes 3 sets of metadata (json) and binary data (bin) files produced from
 the UCVM plotting routines when doing a horizontal slice plot. This then outputs
-to a csv file format.
+to a csv file format and an output filename.
 
 lon lat val
 
@@ -52,9 +52,9 @@ if __name__ == '__main__':
 #lon,lat,vs
     """
 
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 8:
         raise ValueError("Usage:\n"
-                         " ./ucvm_horizontal_slice2csv_all.py vp_data.bin vp_meta.json vs_data.bin vs_meta.json density_data.bin density_meta.json")
+                         " ./ucvm_horizontal_slice2csv_all.py vp_data.bin vp_meta.json vs_data.bin vs_meta.json density_data.bin density_meta.json output_csvfile")
 
     vp_data_file = sys.argv[1]
     vp_metadata_file = sys.argv[2]
@@ -62,6 +62,8 @@ if __name__ == '__main__':
     vs_metadata_file = sys.argv[4]
     density_data_file = sys.argv[5]
     density_metadata_file = sys.argv[6]
+    output_csvfile = sys.argv[7]
+
     with open(vp_metadata_file) as json_data:
         vp_obj = json.load(json_data)
     with open(vs_metadata_file) as json_data:
@@ -108,12 +110,8 @@ if __name__ == '__main__':
     density_propstr = "Density(kg/m^3)"
 
     #
-    # Create output file name
-    # Example filename: input_data_file = "cross-cvmsi_meta.json"
-    # cross-cvmsi_data.bin cross-cvmsi_meta.json
-    output_file_name = vp_data_file.replace("vp_data.bin","all_data.csv")
-    print("\nWriting CSV file: ", output_file_name)
-    f = open(output_file_name, "w")
+    print("\nWriting CSV file: ", output_csvfile)
+    f = open(output_csvfile, "w")
 
     header_str = '''\
 # Title: {0}

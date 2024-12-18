@@ -64,7 +64,7 @@ if __name__ == '__main__':
   "depth_list": ..
     """
 
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 8:
         raise ValueError("Usage:\n"
                          "  ./ucvm_cross_section2csv_all.py vp_data.bin vp_meta.json vs_data.bin vs_meta.json density_data.bin density_meta.json")
 
@@ -74,6 +74,7 @@ if __name__ == '__main__':
     vs_metadata_file = sys.argv[4]
     density_data_file = sys.argv[5]
     density_metadata_file = sys.argv[6]
+    output_csvfile = sys.argv[7]
     with open(vp_metadata_file) as json_data:
         vp_obj = json.load(json_data)
     with open(vs_metadata_file) as json_data:
@@ -126,13 +127,8 @@ if __name__ == '__main__':
     density_propstr = "Density(kg/m^3)"
 
     #
-    # Create output file name
-    # Example filename: ipnput_data_file = "cross-cvmsi_meta.json"
-    # cross-cvmsi_data.bin cross-cvmsi_meta.json
-    output_file_name = vp_data_file.replace("vp_data.bin","all_data.csv")
-
-    print("\nWriting CSV file: ", output_file_name)
-    f = open(output_file_name, "w")
+    print("\nWriting CSV file: ", output_csvfile)
+    f = open(output_csvfile, "w")
 
     """
     """
